@@ -3,6 +3,7 @@ package oracle
 import (
 	"context"
 	"fmt"
+	"github.com/skip-mev/connect/v2/providers/websockets/ox"
 	"net/http"
 
 	"github.com/skip-mev/connect/v2/providers/websockets/bitget"
@@ -108,6 +109,8 @@ func WebSocketQueryHandlerFactory(
 		wsDataHandler, err = okx.NewWebSocketDataHandler(logger, cfg.WebSocket)
 	case bitget.Name:
 		wsDataHandler, err = bitget.NewWebSocketDataHandler(logger, cfg.WebSocket)
+	case ox.Name:
+		wsDataHandler, err = ox.NewWebSocketDataHandler(logger, cfg.WebSocket)
 	case bitmart.Name:
 		wsDataHandler, err = bitmart.NewWebSocketDataHandler(logger, cfg.WebSocket)
 	default:

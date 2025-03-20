@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/skip-mev/connect/v2/providers/websockets/coinbase"
+	"github.com/skip-mev/connect/v2/providers/websockets/ox"
 	"strings"
 
 	"github.com/skip-mev/connect/v2/providers/apis/defi/osmosis"
@@ -61,6 +62,7 @@ var ProviderMapping = map[string]string{
 	"Coinex":               coinex.Name,
 	"Bitmart":              bitmart.Name,
 	"Xt":                   xt.Name,
+	"Ox":                   ox.Name,
 	"Jupiter":              jupiter.Name,
 	"TestVolatileExchange": volatile.Name,
 	"Raydium":              raydium.Name,

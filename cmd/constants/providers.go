@@ -39,6 +39,7 @@ import (
 	"github.com/skip-mev/connect/v2/providers/websockets/kucoin"
 	"github.com/skip-mev/connect/v2/providers/websockets/mexc"
 	"github.com/skip-mev/connect/v2/providers/websockets/okx"
+	"github.com/skip-mev/connect/v2/providers/websockets/ox"
 	mmtypes "github.com/skip-mev/connect/v2/service/clients/marketmap/types"
 )
 
@@ -203,6 +204,12 @@ var (
 		{
 			Name:      bitget.Name,
 			WebSocket: bitget.DefaultWebSocketConfig,
+			Type:      types.ConfigType,
+		},
+
+		{
+			Name:      ox.Name,
+			WebSocket: ox.DefaultWebSocketConfig,
 			Type:      types.ConfigType,
 		},
 
