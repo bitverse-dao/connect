@@ -90,7 +90,7 @@ func (h *WebSocketHandler) CreateMessages(
 ) ([]handlers.WebsocketEncodedMessage, error) {
 	instruments := make([]string, 0)
 	for _, ticker := range tickers {
-		instruments = append(instruments, fmt.Sprintf("market:%v", instruments))
+		instruments = append(instruments, fmt.Sprintf("market:%v", ticker))
 		h.cache.Add(ticker)
 	}
 
