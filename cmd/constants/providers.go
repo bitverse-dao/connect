@@ -24,6 +24,7 @@ import (
 	xtapi "github.com/skip-mev/connect/v2/providers/apis/xt"
 	"github.com/skip-mev/connect/v2/providers/apis/yymm"
 	"github.com/skip-mev/connect/v2/providers/volatile"
+	"github.com/skip-mev/connect/v2/providers/websockets/alltick"
 	binancews "github.com/skip-mev/connect/v2/providers/websockets/binance"
 	"github.com/skip-mev/connect/v2/providers/websockets/bitfinex"
 	"github.com/skip-mev/connect/v2/providers/websockets/bitget"
@@ -157,6 +158,11 @@ var (
 		{
 			Name:      bitverse.Name,
 			WebSocket: bitverse.DefaultWebSocketConfig,
+			Type:      types.ConfigType,
+		},
+		{
+			Name:      alltick.Name,
+			WebSocket: alltick.DefaultWebSocketConfig,
 			Type:      types.ConfigType,
 		},
 		{

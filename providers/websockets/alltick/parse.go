@@ -1,0 +1,65 @@
+package alltick
+
+import (
+	"fmt"
+	"strings"
+	"time"
+
+	providertypes "github.com/skip-mev/connect/v2/providers/types"
+
+	"go.uber.org/zap"
+
+	"github.com/skip-mev/connect/v2/oracle/types"
+	"github.com/skip-mev/connect/v2/pkg/math"
+	"github.com/skip-mev/connect/v2/providers/base/websocket/handlers"
+)
+
+// parseSubscribeResponseMessage parses a subscribe response message. The format of the message
+// is defined in the messages.go file. There are two cases that are handled:
+//
+// 1. Successfully subscribed to the channel. In this case, no further action is required.
+// 2. Error message. In this case, we attempt to re-subscribe to the channel.
+func (h *WebSocketHandler) parseSubscriptionResponse(resp SubscriptionResponse) ([]handlers.WebsocketEncodedMessage, error) {
+	// A response with an event type of subscribe means that we have successfully subscribed to the channel.
+	if t := Operation(resp.CmdId); t == OperationSubscribe && resp.Msg == "ok" {
+		h.logger.Info("successfully subscribed to channel", zap.String("connection", resp.Trace))
+		return nil, nil
+	}
+
+	if t := Operation(resp.CmdId); t == OperationSubscribe && resp.Msg != "ok" {
+		return nil, fmt.Errorf("received error message: %s", resp.Msg)
+	}
+	return nil, fmt.Errorf("unable to parse message")
+}
+
+// parseTickerUpdate parses a ticker update message. The format of the message is defined
+// in the messages.go file. This message contains the latest price data for a set of pairs.
+func (h *WebSocketHandler) parseTickerUpdate(
+	resp TickerUpdateMessage,
+) (types.PriceResponse, error) {
+	var (
+		resolved   = make(types.ResolvedPrices)
+		unresolved = make(types.UnResolvedPrices)
+	)
+
+	// Iterate through all the tickers and add them to the response.
+	data := resp.Data
+	code := strings.ReplaceAll(data.Code, ".US", "USDT")
+	ticker, ok := h.cache.FromOffChainTicker(code)
+	if !ok {
+		return types.NewPriceResponse(resolved, unresolved), fmt.Errorf("unknown ticker %s", data.Code)
+	}
+
+	// Convert the price to a big.Float.
+	price, err := math.Float64StringToBigFloat(data.Price)
+	if err != nil {
+		wErr := fmt.Errorf("failed to convert price to big.Int: %w", err)
+		unresolved[ticker] = providertypes.UnresolvedResult{
+			ErrorWithCode: providertypes.NewErrorWithCode(wErr, providertypes.ErrorFailedToParsePrice),
+		}
+		return types.NewPriceResponse(resolved, unresolved), nil
+	}
+
+	resolved[ticker] = types.NewPriceResult(price, time.Now().UTC())
+	return types.NewPriceResponse(resolved, unresolved), nil
+}

@@ -3,6 +3,7 @@ package oracle
 import (
 	"context"
 	"fmt"
+	"github.com/skip-mev/connect/v2/providers/websockets/alltick"
 	"github.com/skip-mev/connect/v2/providers/websockets/ox"
 	"net/http"
 
@@ -72,6 +73,8 @@ func WebSocketQueryHandlerFactory(
 		wsDataHandler, err = bybit.NewWebSocketDataHandler(logger, cfg.WebSocket)
 	case bitverse.Name:
 		wsDataHandler, err = bitverse.NewWebSocketDataHandler(logger, cfg.WebSocket)
+	case alltick.Name:
+		wsDataHandler, err = alltick.NewWebSocketDataHandler(logger, cfg.WebSocket)
 	case coinbasews.Name:
 		wsDataHandler, err = coinbasews.NewWebSocketDataHandler(logger, cfg.WebSocket)
 	case cryptodotcom.Name:

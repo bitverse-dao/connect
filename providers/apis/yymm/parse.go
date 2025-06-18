@@ -3,6 +3,7 @@ package yymm
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/skip-mev/connect/v2/providers/websockets/alltick"
 	"github.com/skip-mev/connect/v2/providers/websockets/coinbase"
 	"github.com/skip-mev/connect/v2/providers/websockets/ox"
 	"strings"
@@ -51,6 +52,7 @@ var ProviderMapping = map[string]string{
 	"Bitstamp":             bitstamp.Name,
 	"Bybit":                bybit.Name,
 	"Bitverse":             bitverse.Name,
+	"Alltick":              alltick.Name,
 	"CryptoCom":            cryptodotcom.Name,
 	"Huobi":                huobi.Name,
 	"Kucoin":               kucoin.Name,
