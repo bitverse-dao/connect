@@ -14,7 +14,8 @@ const (
 	Name = "alltick_ws"
 
 	// URLProd is the public ByBit Websocket URL.
-	URLProd = "wss://quote.alltick.io/quote-stock-b-ws-api?token=328a73ad19c913a0a7e79fb0a0e0f6ac-c-app"
+	//	URLProd = "wss://quote.alltick.io/quote-stock-b-ws-api?token=328a73ad19c913a0a7e79fb0a0e0f6ac-c-app"
+	URLProd = "wss://quote.alltick.io/quote-stock-b-ws-api"
 
 	// DefaultPingInterval is the default ping interval for the ByBit websocket.
 	DefaultPingInterval = 10 * time.Second
