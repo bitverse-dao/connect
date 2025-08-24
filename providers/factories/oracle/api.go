@@ -3,6 +3,7 @@ package oracle
 import (
 	"context"
 	"fmt"
+	binancefutures "github.com/skip-mev/connect/v2/providers/apis/binance_futures"
 	"net/http"
 	"strings"
 
@@ -110,6 +111,8 @@ func APIQueryHandlerFactory(
 		apiDataHandler, err = polymarket.NewAPIHandler(cfg.API)
 	case providerName == bingx.Name:
 		apiDataHandler, err = bingx.NewAPIHandler(cfg.API)
+	case providerName == binancefutures.Name:
+		apiDataHandler, err = binancefutures.NewAPIHandler(cfg.API)
 	case providerName == coinex.Name:
 		apiDataHandler, err = coinex.NewAPIHandler(cfg.API)
 	case providerName == xt.Name:

@@ -5,6 +5,7 @@ import (
 	"github.com/skip-mev/connect/v2/oracle/constants"
 	"github.com/skip-mev/connect/v2/oracle/types"
 	binanceapi "github.com/skip-mev/connect/v2/providers/apis/binance"
+	binancefutures "github.com/skip-mev/connect/v2/providers/apis/binance_futures"
 	bingxapi "github.com/skip-mev/connect/v2/providers/apis/bingx"
 	bitmartapi "github.com/skip-mev/connect/v2/providers/apis/bitmart"
 	bitstampapi "github.com/skip-mev/connect/v2/providers/apis/bitstamp"
@@ -107,6 +108,11 @@ var (
 		{
 			Name: bingxapi.Name,
 			API:  bingxapi.DefaultAPIConfig,
+			Type: types.ConfigType,
+		},
+		{
+			Name: binancefutures.Name,
+			API:  binancefutures.DefaultAPIConfig,
 			Type: types.ConfigType,
 		},
 		{

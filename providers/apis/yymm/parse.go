@@ -3,6 +3,7 @@ package yymm
 import (
 	"encoding/json"
 	"fmt"
+	binancefutures "github.com/skip-mev/connect/v2/providers/apis/binance_futures"
 	"github.com/skip-mev/connect/v2/providers/websockets/alltick"
 	"github.com/skip-mev/connect/v2/providers/websockets/coinbase"
 	"github.com/skip-mev/connect/v2/providers/websockets/ox"
@@ -61,6 +62,7 @@ var ProviderMapping = map[string]string{
 	"CoinbasePro":          coinbase.Name,
 	"Bitget":               bitget.Name,
 	"Bingx":                bingx.Name,
+	"BinanceFutures":       binancefutures.Name,
 	"Coinex":               coinex.Name,
 	"Bitmart":              bitmart.Name,
 	"Xt":                   xt.Name,
